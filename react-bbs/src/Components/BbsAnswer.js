@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
+import UserService from '../Service/UserService';
 
 function BbsAnswer() {
 	const params = useParams();
@@ -10,6 +11,7 @@ function BbsAnswer() {
 	const [bbsDetail, setBbsDetail] = useState([]);
 	const [titleValue, setTitleValue] = useState('');
 	const [contentValue, setContentValue] = useState('');
+	const [userId, setUserId] = useState(UserService.getCurrentUser);
 
 	// link용 (함수)
 	let history = useNavigate();
@@ -44,7 +46,7 @@ function BbsAnswer() {
 
 	const answerData = async () => {
 		let dtoData = {
-			id: 'abc',
+			id: userId,
 			'title': titleValue,
 			'content': contentValue,
 		};
@@ -113,7 +115,7 @@ function BbsAnswer() {
 					<tr>
 						<td>작성자</td>
 						<td>
-							<input className="form-control" type="text" id="title" size={50} value="abc" readOnly />
+							<input className="form-control" type="text" id="title" size={50} value={userId} readOnly />
 						</td>
 					</tr>
 					<tr>

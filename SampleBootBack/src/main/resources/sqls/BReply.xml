@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lotte.com.a.dao.BReplyDao">
+
+    <select id="getBReplyList" parameterType="int" resultType="lotte.com.a.dto.BReplyDto">
+        select seq,
+               id,
+               content,
+               wdate,
+               bbsseq
+        from breply
+        where bbsseq = #{bbsseq}
+        order by wdate desc
+    </select>
+    <select id="getBReplyCount" parameterType="lotte.com.a.dto.BReplyDto" resultType="int">
+        select count(*) from breply
+        where bbsseq = #{bbsseq}
+    </select>
+
+    <insert id="writeBReply" parameterType="lotte.com.a.dto.BReplyDto">
+        insert into breply(id, content, wdate, bbsseq)
+        values (#{id}, #{content}, now(), #{bbsseq})
+    </insert>
+
+    <delete id="deleteBReply" parameterType="lotte.com.a.dto.BReplyDto">
+        delete from breply
+        where seq = #{seq}
+    </delete>
+
+</mapper>

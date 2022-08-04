@@ -1,6 +1,7 @@
 package lotte.com.a.dao;
 
 import lotte.com.a.dto.BbsDto;
+import lotte.com.a.dto.BbsHistoryDto;
 import lotte.com.a.dto.SearchDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,10 @@ public interface BbsDao {
 
     int updateStep(int seq);
     int insertAnswer(Map map);
+
+    int updateReadCount(int seq);
+
+    int insertToHistory(BbsHistoryDto bbsHistoryDto);
+
+    BbsHistoryDto findHistory(BbsHistoryDto bbsHistoryDto);
 }

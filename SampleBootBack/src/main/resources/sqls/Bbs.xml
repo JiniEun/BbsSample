@@ -130,4 +130,21 @@
                 (select depth from bbs c where seq = #{seq}) + 1,
                 #{title}, #{content}, now(), 0, 0)
     </insert>
+
+    <update id="updateReadCount" parameterType="int">
+        update bbs
+        set readcount = ifnull(readcount,0)+1
+        where seq=#{seq}
+    </update>
+
+    <insert id="insertToHistory" parameterType="lotte.com.a.dto.BbsHistoryDto">
+        insert into bbshistory(bbsseq, reader)
+        values (#{bbsseq}, #{reader})
+    </insert>
+
+    <select id="findHistory" parameterType="lotte.com.a.dto.BbsHistoryDto" resultType="lotte.com.a.dto.BbsHistoryDto">
+        select seq, bbsseq, reader
+        from bbshistory
+        where bbsseq = #{bbsseq} and reader = #{reader}
+    </select>
 </mapper>

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import './Bbswrite.css';
+import './CSS/Bbsupdate.css';
+import UserService from '../Service/UserService';
 
 function Bbsupdate() {
 	const params = useParams();
 
 	const [seq, setSeq] = useState();
 	const [bbsDetail, setBbsDetail] = useState([]);
+	const [userId, setUserId] = useState(UserService.getCurrentUser);
 
 	// link용 (함수)
 	let history = useNavigate();
@@ -50,7 +52,7 @@ function Bbsupdate() {
 		console.log('updateData');
 		let data = {
 			'seq': seq,
-			'id': 'abc',
+			'id': userId,
 			'title': titleValue,
 			'content': contentValue,
 		};

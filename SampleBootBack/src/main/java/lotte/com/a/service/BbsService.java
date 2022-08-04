@@ -2,6 +2,7 @@ package lotte.com.a.service;
 
 import lotte.com.a.dao.BbsDao;
 import lotte.com.a.dto.BbsDto;
+import lotte.com.a.dto.BbsHistoryDto;
 import lotte.com.a.dto.SearchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,5 +69,26 @@ public class BbsService {
         map.put("content", bbsDto.getContent());
         cnt += bbsDao.insertAnswer(map);
         return cnt > 0;
+    }
+
+    private boolean updateReadCount(int seq){
+        return bbsDao.updateReadCount(seq) > 0;
+    }
+
+    private boolean insertToHistory(BbsHistoryDto bbsHistoryDto){
+        return bbsDao.insertToHistory(bbsHistoryDto) > 0;
+    }
+
+    private BbsHistoryDto findHistory(BbsHistoryDto bbsHistoryDto){
+        return bbsDao.findHistory(bbsHistoryDto);
+    }
+
+    public boolean updateRead(BbsHistoryDto bbsHistoryDto){
+        if(findHistory(bbsHistoryDto) == null){
+            insertToHistory(bbsHistoryDto);
+            updateReadCount(bbsHistoryDto.getBbsseq());
+            return true;
+        }
+        return false;
     }
 }

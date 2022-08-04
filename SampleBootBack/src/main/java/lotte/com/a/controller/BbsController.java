@@ -1,6 +1,7 @@
 package lotte.com.a.controller;
 
 import lotte.com.a.dto.BbsDto;
+import lotte.com.a.dto.BbsHistoryDto;
 import lotte.com.a.dto.SearchDto;
 import lotte.com.a.service.BbsService;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class BbsController {
 
     @PostMapping("/getBbsList")
     public List<BbsDto> getBbsList() {
-        log.info("getBbsPagingSearchList " + new Date());
+        log.info("getBbsList " + new Date());
 
         List<BbsDto> bbsList = bbsService.getBbsList();
 
@@ -89,7 +90,6 @@ public class BbsController {
         if (!check) {
             return "NO";
         }
-        log.info(check+"");
         return "YES";
     }
 
@@ -150,6 +150,18 @@ public class BbsController {
             return "NO";
         }
         return "YES";
+    }
+
+    @PostMapping("/updateRead")
+    public String updateRead(@RequestBody BbsHistoryDto bbsHistoryDto){
+        log.info("updateRead() " + new Date());
+
+        boolean check = bbsService.updateRead(bbsHistoryDto);
+        if (!check) {
+            return "NO";
+        }
+        return "YES";
+
     }
 
 }

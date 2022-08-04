@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './main.css';
 import Bbslist from './Components/Bbslist';
@@ -6,8 +6,18 @@ import Bbswrite from './Components/Bbswrite';
 import Bbsdetail from './Components/Bbsdetail';
 import Bbsupdate from './Components/Bbsupdate';
 import BbsAnswer from './Components/BbsAnswer';
+import Login from './Components/Login';
+import UserService from './Service/UserService';
 
 function App() {
+	const [onLogin, setOnLogin] = useState(UserService.isUserLoggedIn);
+
+	function doLogout() {
+		UserService.logout();
+		alert('로그아웃 되었습니다.');
+		setOnLogin(false);
+	}
+
 	return (
 		<div>
 			<header className="py-4">
@@ -38,6 +48,18 @@ function App() {
 									</Link>
 								</div>
 							</li>
+							<li className="nav-item d-flex justify-content-end">
+								{!onLogin && (
+									<Link className="nav-link" to="/login">
+										Login
+									</Link>
+								)}
+								{onLogin && (
+									<button className="btn" onClick={doLogout}>
+										LOGOUT
+									</button>
+								)}
+							</li>
 						</ul>
 					</div>
 				</nav>
@@ -51,6 +73,7 @@ function App() {
 								<Route path="/bbsdetail/:seq" element={<Bbsdetail />}></Route>
 								<Route path="/bbsupdate/:seq" element={<Bbsupdate />}></Route>
 								<Route path="/answer/:seq" element={<BbsAnswer />}></Route>
+								<Route path="/login" element={<Login />}></Route>
 							</Routes>
 						</div>
 					</div>

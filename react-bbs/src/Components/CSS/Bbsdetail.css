@@ -1,0 +1,63 @@
+.table-width th {
+    width: 150px;
+}
+
+.table-width td {
+    max-width: 800px;
+}
+
+.table p {
+    word-break: keep-all;
+}
+
+.reply-table-container {
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px !important;
+}
+
+.reply-table {
+    margin: 0;
+}
+
+.reply-table th {
+    width: 80px;
+}
+
+.reply-table td {
+    max-width: 800px;
+}
+
+.reply-table .td-btn {
+    width: 130px;
+}
+
+.reply-table input {
+    width: 100%;
+}
+
+.reply-table textarea {
+    resize: none;
+}
+
+.userCommentBox {
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px !important;
+    margin-bottom: 10px;
+}
+
+.userCommentBox p {
+    margin: 0;
+}
+
+.userCommentBox .p-content {
+    margin: 0;
+    padding: 10px;
+    background-color: #eeeeee;
+}
+
+.flex-container-for-btn{
+    display: flex;
+    justify-content: space-between;
+}

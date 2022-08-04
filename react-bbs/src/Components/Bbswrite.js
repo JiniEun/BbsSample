@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import './Bbswrite.css';
+import './CSS/Bbswrite.css';
+import UserService from '../Service/UserService';
 
 function Bbswrite() {
 	const [titleValue, setTitleValue] = useState('');
 	const [contentValue, setContentValue] = useState('');
+	const [userId, setUserId] = useState(UserService.getCurrentUser);
 
 	const insertBtn = () => {
 		if (titleValue !== '' && contentValue !== '') {
@@ -23,7 +25,7 @@ function Bbswrite() {
 
 	const insertData = async () => {
 		let data = {
-			'id': 'abc',
+			'id': userId,
 			'title': titleValue,
 			'content': contentValue,
 		};
@@ -53,7 +55,7 @@ function Bbswrite() {
 					<tr>
 						<td>작성자</td>
 						<td>
-							<input className="form-control" type="text" id="title" size={50} value="abc" readOnly />
+							<input className="form-control" type="text" id="title" size={50} value={userId} readOnly />
 						</td>
 					</tr>
 					<tr>
