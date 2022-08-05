@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
 import UserService from '../Service/UserService';
+import './CSS/Bbsdetail.css';
 
 function BbsAnswer() {
 	const params = useParams();
@@ -80,34 +81,34 @@ function BbsAnswer() {
 		<div className="pb-5 mb-5">
 			<div className="h3">답글 달기</div>
 			<div className="h4 my-3">본문</div>
-			<table className="table">
+			<table className="table table-width">
 				<tbody>
 					<tr>
-						<td>제목</td>
+						<th>제목</th>
 						<td>
 							<p>{bbsDetail.title}</p>
 						</td>
 					</tr>
 					<tr>
-						<td>작성자</td>
+						<th>작성자</th>
 						<td>
 							<p>{bbsDetail.id}</p>
 						</td>
 					</tr>
 					<tr>
-						<td>내용</td>
+						<th>내용</th>
 						<td>
 							<p>{bbsDetail.content}</p>
 						</td>
 					</tr>
 					<tr>
-						<td>작성일</td>
+						<th>작성일</th>
 						<td>
 							<p>{bbsDetail.wdate}</p>
 						</td>
 					</tr>
 					<tr>
-						<td>조회수</td>
+						<th>조회수</th>
 						<td>
 							<p>{bbsDetail.readcount}</p>
 						</td>
@@ -115,22 +116,22 @@ function BbsAnswer() {
 				</tbody>
 			</table>
 			<div className="h4 my-3">답글</div>
-			<table className="table">
+			<table className="table table-width">
 				<tbody>
 					<tr>
-						<td>작성자</td>
+						<th>작성자</th>
 						<td>
 							<input className="form-control" type="text" id="title" size={50} value={userId} readOnly />
 						</td>
 					</tr>
 					<tr>
-						<td>제목</td>
+						<th>제목</th>
 						<td>
 							<input className="form-control" type="text" id="title" size={50} value={titleValue} onChange={titleChange} />
 						</td>
 					</tr>
 					<tr>
-						<td>내용</td>
+						<th>내용</th>
 						<td>
 							<textarea className="form-control textarea" rows={5} cols={80} onChange={contentChange}></textarea>
 						</td>
