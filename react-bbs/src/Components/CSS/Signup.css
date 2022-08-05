@@ -1,0 +1,13 @@
+.btn-signup {
+    border: 1px solid #62679b;
+    color:#62679b;
+}
+
+.btn-signup:hover {
+    background-color: #62679b;
+    color:white;
+}
+
+.bg-signup {
+    background: url(./image/signup.png);
+}

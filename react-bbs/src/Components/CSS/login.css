@@ -1,3 +1,12 @@
-.btn-signup{
-    color: #ffffff;
+.btn-signup-1{
+    color: #333333;
+}
+
+.btn-login {
+    color: #333333;
+    border: 1px solid #333333;
+}
+
+.bg-login{
+    background: url(./image/login.png);
 }

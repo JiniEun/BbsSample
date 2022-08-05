@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
@@ -17,7 +17,7 @@ function Bbsdetail() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [comments, setComments] = useState([]);
 
-	const [userId, setUserId] = useState(UserService.getCurrentUser);
+	const [userId] = useState(UserService.getCurrentUserId);
 
 	const contentChange = (e) => setContentValue(e.target.value);
 	const idChange = (e) => setIdValue(e.target.value);
@@ -25,41 +25,39 @@ function Bbsdetail() {
 	// link용 (함수)
 	let history = useNavigate();
 
-	useEffect(() => {
-		//const params = new URLSearchParams(window.location.search);
-		setSeq(params.seq);
-		// console.log(params.seq);
-		// console.log(seq);
-		updateRead(seq);
-		readData(seq);
-		readReplyData(seq);
-		setIdValue(userId);
-	}, [params, seq]);
-
-	const updateRead = async (seq) => {
-		console.log('updateRead');
-		let data = {
-			'reader': userId,
-			'bbsseq': seq,
-		};
-		console.log(data);
-		await axios
-			.post('http://localhost:3000/bbs/updateRead', data, {
-				headers: {
-					'Content-Type': `application/json`,
-				},
-			})
-			.then(function (resp) {
-				console.log('updateRead');
-				console.log(resp);
-				if (resp.data === 'YES') {
-					window.location.reload();
-				}
-			})
-			.catch(function (error) {
-				console.log('error');
-			});
-	};
+	const updateRead = useCallback(
+		async (seq) => {
+			console.log('updateRead');
+			if (seq === undefined) {
+				return;
+			}
+			if (userId === undefined || userId === null) {
+				return;
+			}
+			let data = {
+				'reader': userId,
+				'bbsseq': seq,
+			};
+			console.log(data);
+			await axios
+				.post('http://localhost:3000/bbs/updateRead', data, {
+					headers: {
+						'Content-Type': `application/json`,
+					},
+				})
+				.then(function (resp) {
+					console.log('updateRead');
+					console.log(resp);
+					if (resp.data === 'YES') {
+						readData(seq);
+					}
+				})
+				.catch(function (error) {
+					console.log('error');
+				});
+		},
+		[userId]
+	);
 
 	const readData = async (seq) => {
 		await axios
@@ -79,7 +77,6 @@ function Bbsdetail() {
 			.then(function (resp) {
 				setIsLoading(false);
 				setComments(resp.data);
-				console.log(resp.data);
 				console.log('success');
 			})
 			.catch(function (error) {
@@ -117,6 +114,11 @@ function Bbsdetail() {
 	};
 
 	const insertReplyBtn = () => {
+		if (userId === '' || userId === null) {
+			alert('로그인 후 이용가능합니다.');
+			window.location.replace('/login');
+			return;
+		}
 		if (contentValue !== '') {
 			insertReplyData();
 		} else {
@@ -177,8 +179,16 @@ function Bbsdetail() {
 			});
 	};
 
+	useEffect(() => {
+		setSeq(params.seq);
+		updateRead(seq);
+		readData(seq);
+		readReplyData(seq);
+		setIdValue(userId);
+	}, [params, seq, userId, updateRead]);
+
 	return (
-		<div className="pb-5 mb-5">
+		<div className="pb-3 mb-4">
 			<div className="h3">게시글</div>
 			<table className="table table-width">
 				<tbody>
@@ -215,20 +225,20 @@ function Bbsdetail() {
 				</tbody>
 			</table>
 			<div className="my-5 d-flex justify-contents-center">
-				<Link className="btn btn-outline-secondary mr-2" to="/bbslist">
+				<Link className="btn btn-violet mr-2" to="/bbslist">
 					글 목록
 				</Link>
 				{userId === bbsDetail.id && (
 					<>
-						<Link className="btn btn-outline-secondary mr-2" to={`/bbsupdate/${seq}`}>
+						<Link className="btn btn-violet mr-2" to={`/bbsupdate/${seq}`}>
 							글 수정
 						</Link>
-						<button className="btn btn-outline-secondary mr-2" onClick={deleteBtn}>
+						<button className="btn btn-violet mr-2" onClick={deleteBtn}>
 							글 삭제
 						</button>
 					</>
 				)}
-				<Link className="btn btn-outline-secondary mr-2" to={`/answer/${seq}`}>
+				<Link className="btn btn-violet mr-2" to={`/answer/${seq}`}>
 					답글 달기
 				</Link>
 			</div>
@@ -242,10 +252,10 @@ function Bbsdetail() {
 									<label>작성자</label>
 								</th>
 								<td>
-									<input type="text" size="20" className="form-control" value={idValue} onChange={idChange} />
+									<input type="text" size="20" className="form-control" value={idValue || ''} onChange={idChange} readOnly />
 								</td>
 								<td className="td-btn">
-									<button id="addReply" className="btn btn-outline-dark" onClick={insertReplyBtn}>
+									<button id="addReply" className="btn btn-violet" onClick={insertReplyBtn}>
 										댓글 추가
 									</button>
 								</td>
@@ -287,7 +297,7 @@ const CommentList = (props) => {
 							<div className="flex-container-for-btn">
 								<p>{props.id}</p>
 								{props.userId === props.id && (
-									<button className="btn btn-outline-dark" onClick={props.onClick}>
+									<button className="btn btn-violet" onClick={props.onClick}>
 										댓글 삭제
 									</button>
 								)}

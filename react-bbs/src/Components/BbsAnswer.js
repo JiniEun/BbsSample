@@ -11,13 +11,18 @@ function BbsAnswer() {
 	const [bbsDetail, setBbsDetail] = useState([]);
 	const [titleValue, setTitleValue] = useState('');
 	const [contentValue, setContentValue] = useState('');
-	const [userId, setUserId] = useState(UserService.getCurrentUser);
+	const [userId] = useState(UserService.getCurrentUserId);
+	const [onLogin] = useState(UserService.isUserLoggedIn);
 
 	// link용 (함수)
 	let history = useNavigate();
 
 	const titleChange = (e) => setTitleValue(e.target.value);
 	const contentChange = (e) => setContentValue(e.target.value);
+
+	if (!onLogin) {
+		window.location.href = '/login';
+	}
 
 	const answerBtn = () => {
 		if (titleValue !== '' && contentValue !== '') {
@@ -133,13 +138,13 @@ function BbsAnswer() {
 				</tbody>
 			</table>
 			<div className="my-5 d-flex justify-contents-center">
-				<Link className="btn btn-outline-secondary mr-2" to="/bbslist">
+				<Link className="btn btn-violet mr-2" to="/bbslist">
 					글 목록
 				</Link>
-				<Link className="btn btn-outline-secondary mr-2" to={`/bbsdetail/${seq}`}>
+				<Link className="btn btn-violet mr-2" to={`/bbsdetail/${seq}`}>
 					본문으로
 				</Link>
-				<button className="btn btn-outline-secondary mr-2" onClick={answerBtn}>
+				<button className="btn btn-violet mr-2" onClick={answerBtn}>
 					답글 달기
 				</button>
 			</div>

@@ -71,24 +71,25 @@ public class BbsService {
         return cnt > 0;
     }
 
-    private boolean updateReadCount(int seq){
+    private boolean updateReadCount(int seq) {
         return bbsDao.updateReadCount(seq) > 0;
     }
 
-    private boolean insertToHistory(BbsHistoryDto bbsHistoryDto){
+    private boolean insertToHistory(BbsHistoryDto bbsHistoryDto) {
         return bbsDao.insertToHistory(bbsHistoryDto) > 0;
     }
 
-    private BbsHistoryDto findHistory(BbsHistoryDto bbsHistoryDto){
+    private BbsHistoryDto findHistory(BbsHistoryDto bbsHistoryDto) {
         return bbsDao.findHistory(bbsHistoryDto);
     }
 
-    public boolean updateRead(BbsHistoryDto bbsHistoryDto){
-        if(findHistory(bbsHistoryDto) == null){
-            insertToHistory(bbsHistoryDto);
-            updateReadCount(bbsHistoryDto.getBbsseq());
-            return true;
+    public boolean updateRead(BbsHistoryDto bbsHistoryDto) {
+        if (findHistory(bbsHistoryDto) != null) {
+            return false;
         }
-        return false;
+
+        insertToHistory(bbsHistoryDto);
+        updateReadCount(bbsHistoryDto.getBbsseq());
+        return true;
     }
 }

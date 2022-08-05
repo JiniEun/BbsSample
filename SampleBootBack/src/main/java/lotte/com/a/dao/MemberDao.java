@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface MemberDao {
-    MemberDto idCheck(String id);
-    MemberDto emailCheck(String email);
+    String idCheck(String id);
+    String emailCheck(String email);
 
     int addMember(MemberDto memberDto);
 

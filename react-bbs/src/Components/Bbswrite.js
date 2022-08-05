@@ -7,7 +7,18 @@ import UserService from '../Service/UserService';
 function Bbswrite() {
 	const [titleValue, setTitleValue] = useState('');
 	const [contentValue, setContentValue] = useState('');
-	const [userId, setUserId] = useState(UserService.getCurrentUser);
+	const [userId] = useState(UserService.getCurrentUserId);
+	const [onLogin] = useState(UserService.isUserLoggedIn);
+
+	// link용 (함수)
+	let navigate = useNavigate();
+
+	const titleChange = (e) => setTitleValue(e.target.value);
+	const contentChange = (e) => setContentValue(e.target.value);
+
+	if (!onLogin) {
+		window.location.href = '/login';
+	}
 
 	const insertBtn = () => {
 		if (titleValue !== '' && contentValue !== '') {
@@ -16,12 +27,6 @@ function Bbswrite() {
 			alert('빈칸을 채워주세요!');
 		}
 	};
-
-	const titleChange = (e) => setTitleValue(e.target.value);
-	const contentChange = (e) => setContentValue(e.target.value);
-
-	// link용 (함수)
-	let history = useNavigate();
 
 	const insertData = async () => {
 		let data = {
@@ -39,7 +44,7 @@ function Bbswrite() {
 				console.log(resp.data);
 				if (resp.data === 'YES') {
 					alert('글 등록 완료');
-					history('/bbslist');
+					navigate('/bbslist');
 				}
 			})
 			.catch(function (error) {
@@ -73,10 +78,10 @@ function Bbswrite() {
 				</tbody>
 			</table>
 			<div className="my-5 d-flex justify-contents-center">
-				<Link className="btn btn-outline-secondary mr-2" to="/bbslist">
+				<Link className="btn btn-violet mr-2" to="/bbslist">
 					글 목록
 				</Link>
-				<button type="button" className="btn btn-outline-secondary" onClick={insertBtn}>
+				<button type="button" className="btn btn-violet" onClick={insertBtn}>
 					글 작성
 				</button>
 			</div>

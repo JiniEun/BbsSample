@@ -9,7 +9,7 @@ function Bbsupdate() {
 
 	const [seq, setSeq] = useState();
 	const [bbsDetail, setBbsDetail] = useState([]);
-	const [userId, setUserId] = useState(UserService.getCurrentUser);
+	const [userId] = useState(UserService.getCurrentUserId);
 
 	// link용 (함수)
 	let history = useNavigate();
@@ -101,10 +101,10 @@ function Bbsupdate() {
 				</tbody>
 			</table>
 			<div className="my-5 d-flex justify-contents-center">
-				<Link className="btn btn-outline-secondary mr-2" to="/bbslist">
+				<Link className="btn btn-violet mr-2" to="/bbslist">
 					글 목록
 				</Link>
-				<button type="button" className="btn btn-outline-secondary" onClick={updateBtn}>
+				<button type="button" className="btn btn-violet" onClick={updateBtn}>
 					글 수정
 				</button>
 			</div>

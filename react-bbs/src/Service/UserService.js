@@ -17,12 +17,25 @@ class UserService {
 		});
 	}
 
-	getCurrentUser() {
-		return localStorage.getItem('userId');
+	register(data) {
+		// console.log(data);
+		return axios.post(USER_API_BASE_URL + '/regi', data, {
+			headers: {
+				'Content-Type': `application/json`,
+			},
+		});
+	}
+
+	getCurrentUserId() {
+		return sessionStorage.getItem('userId');
+	}
+
+	getCurrentUserName() {
+		return sessionStorage.getItem('userName');
 	}
 
 	isUserLoggedIn() {
-		const isLogin = localStorage.getItem('userId');
+		const isLogin = sessionStorage.getItem('userId');
 
 		if (isLogin === undefined || isLogin === null) {
 			return false;
@@ -32,7 +45,7 @@ class UserService {
 	}
 
 	logout() {
-		localStorage.removeItem('userId');
+		sessionStorage.clear();
 	}
 }
 

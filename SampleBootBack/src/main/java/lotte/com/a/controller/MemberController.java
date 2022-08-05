@@ -23,8 +23,9 @@ public class MemberController {
     MemberService memberService;
 
     @PostMapping("/idCheck")
-    public String idCheck(String id) {
+    public String idCheck(@RequestBody Map<String,String> map) {
         log.info("idCheck() " + new Date());
+        String id = map.get("id");
         String msg = "NO";
         if (memberService.idCheck(id)) {
             msg = "YES";
@@ -34,8 +35,9 @@ public class MemberController {
     }
 
     @PostMapping("/emailCheck")
-    public String emailCheck(String email) {
+    public String emailCheck(@RequestBody Map<String,String> map) {
         log.info("emailCheck() " + new Date());
+        String email = map.get("email");
         String msg = "NO";
         if (memberService.emailCheck(email)) {
             msg = "YES";
@@ -45,7 +47,7 @@ public class MemberController {
     }
 
     @PostMapping("/regi")
-    public String addMember(MemberDto memberDto) {
+    public String addMember(@RequestBody MemberDto memberDto) {
         memberDto.setAuth(3);
         log.info("addMember()" + new Date());
         String msg = "NO";
@@ -71,6 +73,7 @@ public class MemberController {
         }
 
         map.put("msg", msg);
+        System.out.println(map.toString());
 
         return map;
     }

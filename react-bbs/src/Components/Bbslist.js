@@ -59,7 +59,7 @@ function Bbslist() {
 	};
 
 	return (
-		<div className="pb-5 mb-5">
+		<div className="pb-3 mb-4">
 			<div className="h3">게시글 목록</div>
 			{/* 검색 */}
 			<table className="search">
@@ -77,7 +77,7 @@ function Bbslist() {
 							<input type="text" className="form-control" placeholder="검색어" value={searchValue} onChange={searchChange} />
 						</td>
 						<td>
-							<button type="button" className="btn btn-outline-secondary" onClick={searchBtn}>
+							<button type="button" className="btn btn-violet" onClick={searchBtn}>
 								검색
 							</button>
 						</td>
@@ -104,7 +104,7 @@ function Bbslist() {
 			<Pagination activePage={page} itemsCountPerPage={10} totalItemsCount={bbsLen} pageRangeDisplayed={5} prevPageText={'‹'} nextPageText={'›'} onChange={handlePageChange} />
 
 			<div className="my-5 d-flex justify-contents-center">
-				<Link className="btn btn-outline-secondary" to="/bbswrite">
+				<Link className="btn btn-violet" to="/bbswrite">
 					글쓰기
 				</Link>
 			</div>
