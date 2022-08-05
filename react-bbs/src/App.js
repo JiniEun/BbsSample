@@ -101,7 +101,7 @@ function App() {
 function Home() {
 	return (
 		<div className="home-container">
-			<h2>Home</h2>
+			<img alt="" src="home.png" className="home-image" />
 		</div>
 	);
 }
