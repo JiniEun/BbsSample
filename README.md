@@ -3,7 +3,7 @@ BbsSample ; React + SpringBoot
 
 ## 기능
 ### Bbs
-- BBS CRUD 
+- BBS CRUD <br/>
 list(+paging), write, detail, update, delete / +답글(부모글 삭제할 경우 답글도 안보이게 처리함)
 - BBS 댓글 기능
 - BBS 조회수 증가 기능
