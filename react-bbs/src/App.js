@@ -46,9 +46,11 @@ function App() {
 										<Link className="dropdown-item" to="/bbslist">
 											글 목록
 										</Link>
-										<Link className="dropdown-item" to="/bbswrite">
-											글 추가
-										</Link>
+										{onLogin && (
+											<Link className="dropdown-item" to="/bbswrite">
+												글 추가
+											</Link>
+										)}
 									</div>
 								</li>
 							</ul>
