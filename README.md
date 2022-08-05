@@ -4,16 +4,20 @@ BbsSample ; React + SpringBoot
 ## 기능
 ### Bbs
 - BBS CRUD <br/>
-list(+paging), write, detail, update, delete / +답글(부모글 삭제할 경우 답글도 안보이게 처리함)
+list(+paging), write, detail, update, delete / +답글(부모글 삭제할 경우 답글도 안보이게 처리)
 - BBS 댓글 기능
-- BBS 조회수 증가 기능
+- BBS 조회수 증가 기능 <br/>
+로그인한 유저에 한해 한번만 조회수 증가
+
 
 <br/>
 
-### Login
+### User
 - 간단한 로그인, 로그아웃
 - 회원가입
 - 로그인시 id 기억하기 기능 (cookie 이용)
+- 로그인 여부에 따른 헤더 nav에 로그인 / 로그아웃 버튼 상태 처리
+- 로그인하지 않았을 경우 댓글, 답글, 게시글을 작성 불가하도록 처리 -> 로그인 화면으로 이동
 
 <br/>
 
